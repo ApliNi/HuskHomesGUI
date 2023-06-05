@@ -36,6 +36,8 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.function.Consumer;
 
+import static net.william278.huskhomes.gui.config.Locales.textWrap;
+
 /**
  * A menu for displaying a list of saved positions
  */
@@ -204,7 +206,7 @@ public class ListMenu<T extends SavedPosition> extends Menu {
 
                 // description
                 (!position.getMeta().getDescription().isBlank() ?
-                        plugin.getLocales().getLocale("item_description", position.getMeta().getDescription())
+                        plugin.getLocales().getLocale("item_description", textWrap(plugin, position.getMeta().getDescription()))
                         : plugin.getLocales().getLocale("item_description_blank")),
 
                 // player name
