@@ -46,6 +46,11 @@ public class ListMenu<T extends SavedPosition> extends Menu {
     private static final String EDIT_HOME_PERMISSION = "huskhomes.command.edithome";
     private static final String EDIT_HOME_OTHER_PERMISSION = "huskhomes.command.edithome.other";
     private static final String EDIT_WARP_PERMISSION = "huskhomes.command.editwarp";
+    // huskhomesGUI
+    private static final String EDIT_HOME_ICON_PERMISSION = "huskhomesgui.edithome.icon";
+    private static final String EDIT_HOME_ICON_OTHER_PERMISSION = "huskhomesgui.edithome.icon.other";
+    private static final String EDIT_WARP_ICON_PERMISSION = "huskhomesgui.editwarp.icon";
+
     private final List<T> positions;
     private final Type type;
     private final int pageNumber = 1;
@@ -141,7 +146,6 @@ public class ListMenu<T extends SavedPosition> extends Menu {
                         final OnlineUser user = api.adaptUser(player);
                         switch (click.getType()) {
                             case LEFT -> {
-                                // Update the icon with the item on the cursor
                                 final ItemStack newItem = player.getItemOnCursor();
                                 if (newItem.getType() == Material.AIR) {
                                     // teleport
@@ -158,10 +162,25 @@ public class ListMenu<T extends SavedPosition> extends Menu {
                                     return true;
                                 }
 
+
                                 // Update the icon with the item on the cursor
-                                if (!player.hasPermission(EDIT_HOME_PERMISSION)
-                                    && !player.hasPermission(EDIT_HOME_OTHER_PERMISSION)) {
-                                    return true;
+                                switch (type) {
+                                    case HOME, PUBLIC_HOME -> {
+                                        if (player.getUniqueId().equals(((Home) position).getOwner().getUuid())) {
+                                            if (!player.hasPermission(EDIT_HOME_ICON_PERMISSION)) {
+                                                return true;
+                                            }
+                                        } else {
+                                            if (!player.hasPermission(EDIT_HOME_ICON_OTHER_PERMISSION)) {
+                                                return true;
+                                            }
+                                        }
+                                    }
+                                    case WARP -> {
+                                        if (!player.hasPermission(EDIT_WARP_ICON_PERMISSION)) {
+                                            return true;
+                                        }
+                                    }
                                 }
                                 setPositionMaterial(position, newItem.getType());
                                 click.getGui().draw();
