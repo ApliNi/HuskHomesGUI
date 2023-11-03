@@ -36,7 +36,7 @@ import java.util.Optional;
 public class Settings {
 
     @YamlKey("language")
-    private String language = "en-gb";
+    private String language = "zh-cn";
 
     @YamlComment("Options for the home/warp list menu GUI")
     @YamlKey("menu.rows")
@@ -45,6 +45,8 @@ public class Settings {
     private boolean showMenuControls = true;
     @YamlKey("menu.display_controls_help_in_lore")
     private boolean displayControlsHelpInCore = false;
+    @YamlKey("menu.show_controls_command")
+    private String showMenuControlsCommand = "";
     @YamlKey("menu.text_wrap_length")
     private int textWrapLength = 17;
 
@@ -104,6 +106,10 @@ public class Settings {
 
     public boolean camelCase() {
         return displayControlsHelpInCore;
+    }
+
+    public String getMenuControlsCommand() {
+        return showMenuControlsCommand;
     }
 
     public int getTextWrapLength() {

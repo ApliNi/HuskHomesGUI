@@ -116,6 +116,14 @@ public class ListMenu<T extends SavedPosition> extends Menu {
             if (plugin.getSettings().doShowMenuControls()) {
                 menu.addElement(new StaticGuiElement('i',
                         new ItemStack(plugin.getSettings().getControlsIcon()),
+                        (click) -> {
+                            if(!plugin.getSettings().getMenuControlsCommand().isEmpty()){
+                                if (click.getWhoClicked() instanceof Player player) {
+                                    player.performCommand(plugin.getSettings().getMenuControlsCommand());
+                                }
+                            }
+                            return true;
+                        },
                         plugin.getLocales().getLocale("menu_controls_title"),
                         plugin.getLocales().getLocale("menu_controls_details")));
             }
