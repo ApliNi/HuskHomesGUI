@@ -119,7 +119,7 @@ public class ListMenu<T extends SavedPosition> extends Menu {
                         (click) -> {
                             if(!plugin.getSettings().getMenuControlsCommand().isEmpty()){
                                 if (click.getWhoClicked() instanceof Player player) {
-                                    player.performCommand(plugin.getSettings().getMenuControlsCommand());
+                                    player.chat("/" + plugin.getSettings().getMenuControlsCommand());
                                 }
                             }
                             return true;
